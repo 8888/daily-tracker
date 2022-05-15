@@ -1,5 +1,6 @@
 import { CodePipeline, CodePipelineSource, ShellStep } from 'aws-cdk-lib/pipelines';
 import { Construct } from 'constructs';
+import { AppStage } from './app-stage';
 
 export class Pipeline extends Construct {
   constructor(scope: Construct, id: string) {
@@ -16,5 +17,10 @@ export class Pipeline extends Construct {
         commands: ['npm ci', 'npm run build', 'npx cdk synth'],
       }),
     });
+
+    pipeline.addStage(new AppStage(this, 'DailyTrackerAppStage', {
+      // prod account
+      env: { account: '001812633811', region: 'us-east-1' },
+    }));
   }
 }
