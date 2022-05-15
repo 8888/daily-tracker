@@ -32,7 +32,7 @@ export class IdentityManagement extends Construct {
       oAuth: {
         flows: { authorizationCodeGrant: true },
         scopes: [ OAuthScope.OPENID ],
-        callbackUrls: [ 'www.example.com' ],
+        callbackUrls: [ 'https://example.com/' ],
       },
       preventUserExistenceErrors: true,
     });
