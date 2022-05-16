@@ -14,12 +14,14 @@ export class Pipeline extends Construct {
     const buildAngularAction = new CodeBuildStep('Build', {
       input: repo,
       installCommands: [
+        'pwd',
         'cd lib/client',
         'npm ci',
         'wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb',
         'apt install ./google-chrome-stable_current_amd64.deb',
       ],
       commands: [
+        'pwd',
         'npm run test:ci',
         'npm run build',
       ],
