@@ -34,6 +34,7 @@ export class Pipeline extends Construct {
     const synthAction = new ShellStep('Synth', {
       input: buildAngularAction,
       commands: [
+        'pwd',
         'npm ci',
         'npm run build',
         'npx cdk synth',
