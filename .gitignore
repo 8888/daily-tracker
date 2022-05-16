@@ -1,7 +1,10 @@
-# *.js
+*.js
 !jest.config.js
 *.d.ts
 node_modules
+
+# allow angular app .gitignore to handle that directory
+!lib/client/app/*
 
 # CDK asset staging directory
 .cdk.staging
