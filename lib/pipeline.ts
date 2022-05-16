@@ -13,15 +13,15 @@ export class Pipeline extends Construct {
 
     const buildAngularAction = new CodeBuildStep('Build', {
       input: repo,
+      // working directory is the project root
       installCommands: [
-        'pwd', // /codebuild/output/src012345/src
         'cd lib/client/app',
         'npm ci',
         'wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb --no-verbose',
         'apt -q install ./google-chrome-stable_current_amd64.deb',
       ],
+      // working directory remains the same from the state of installCommands
       commands: [
-        'pwd', // /codebuild/output/src012345/src/lib/client
         'npm run test:ci',
         'npm run build',
       ],
@@ -33,8 +33,8 @@ export class Pipeline extends Construct {
 
     const synthAction = new ShellStep('Synth', {
       input: buildAngularAction,
+      // working directory is the project root
       commands: [
-        'pwd', // /codebuild/output/src012345/src
         'npm ci',
         'npm run build',
         'npx cdk synth',
