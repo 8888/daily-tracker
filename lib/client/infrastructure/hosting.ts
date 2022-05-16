@@ -42,7 +42,7 @@ export class Hosting extends Construct {
     });
 
     new BucketDeployment(this, 'DeployWithInvalidation', {
-      sources: [ Source.asset('./lib/client/dist/daily-tracker') ],
+      sources: [ Source.asset('./lib/client/app/dist/daily-tracker') ],
       destinationBucket: hostingBucket,
       distribution,
       distributionPaths: ['/*'], // this invalidates the cloudfront distribution

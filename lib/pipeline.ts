@@ -15,7 +15,7 @@ export class Pipeline extends Construct {
       input: repo,
       installCommands: [
         'pwd', // /codebuild/output/src012345/src
-        'cd lib/client',
+        'cd lib/client/app',
         'npm ci',
         'wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb --no-verbose',
         'apt -q install ./google-chrome-stable_current_amd64.deb',
@@ -34,7 +34,7 @@ export class Pipeline extends Construct {
     const synthAction = new ShellStep('Synth', {
       input: buildAngularAction,
       commands: [
-        'pwd',
+        'pwd', // /codebuild/output/src012345/src
         'npm ci',
         'npm run build',
         'npx cdk synth',

@@ -26,6 +26,6 @@
   "exclude": [
     "node_modules",
     "cdk.out",
-    "lib/client"
+    "lib/client/app"
   ]
 }
