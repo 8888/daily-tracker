@@ -22,6 +22,8 @@ new PipelineStack(app, 'DailyTrackerStack', {
   /* For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html */
 });
 
-new DnsRecordStack(app, 'DnsRecordStack');
+new DnsRecordStack(app, 'DnsRecordStack', {
+  env: { account: '410489852199', region: 'us-east-1' },
+});
 
 app.synth();
