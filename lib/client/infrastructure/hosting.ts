@@ -1,7 +1,5 @@
 import { CloudFrontAllowedMethods, CloudFrontWebDistribution, OriginAccessIdentity } from 'aws-cdk-lib/aws-cloudfront';
 import { CanonicalUserPrincipal, PolicyStatement } from 'aws-cdk-lib/aws-iam';
-import { AaaaRecord, ARecord, HostedZone, RecordTarget } from 'aws-cdk-lib/aws-route53';
-import { CloudFrontTarget } from 'aws-cdk-lib/aws-route53-targets';
 import { BlockPublicAccess, Bucket } from 'aws-cdk-lib/aws-s3';
 import { BucketDeployment, Source } from 'aws-cdk-lib/aws-s3-deployment';
 import { Construct } from 'constructs';
@@ -49,19 +47,5 @@ export class Hosting extends Construct {
       distribution,
       distributionPaths: ['/*'], // this invalidates the cloudfront distribution
     });
-
-    const zone = HostedZone.fromHostedZoneAttributes(this, 'DailyTrackerZone', {
-      zoneName: 'apphosting.link',
-      hostedZoneId: 'Z0262069TL55NP8Z6D9Z',
-    });
-
-    const recordProps = {
-      zone,
-      recordName: 'dailytracker',
-      target: RecordTarget.fromAlias(new CloudFrontTarget(distribution)),
-    };
-
-    new ARecord(this, 'ARecord', recordProps);
-    new AaaaRecord(this, 'AaaaRecord', recordProps);
   }
 }
