@@ -26,7 +26,7 @@ export class Hosting extends Construct {
       principals: [ new CanonicalUserPrincipal(cloudfrontOAI.cloudFrontOriginAccessIdentityS3CanonicalUserId) ],
     }));
 
-    const certArn = 'arn:aws:acm:us-east-1:410489852199:certificate/a8e91eac-846d-4aa7-a1c0-b3680aab8766';
+    const certArn = 'arn:aws:acm:us-east-1:001812633811:certificate/6499df28-33f7-428a-8889-5005991a49aa';
     const certificate = Certificate.fromCertificateArn(this, 'certificate', certArn);
     const viewerCertificate = ViewerCertificate.fromAcmCertificate(certificate, {
       aliases: [ 'dailytracker.apphosting.link' ],
