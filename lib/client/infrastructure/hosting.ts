@@ -1,8 +1,9 @@
-import { CloudFrontAllowedMethods, CloudFrontWebDistribution, OriginAccessIdentity } from 'aws-cdk-lib/aws-cloudfront';
+import { CloudFrontAllowedMethods, CloudFrontWebDistribution, OriginAccessIdentity, ViewerCertificate } from 'aws-cdk-lib/aws-cloudfront';
 import { CanonicalUserPrincipal, PolicyStatement } from 'aws-cdk-lib/aws-iam';
 import { BlockPublicAccess, Bucket } from 'aws-cdk-lib/aws-s3';
 import { BucketDeployment, Source } from 'aws-cdk-lib/aws-s3-deployment';
 import { Construct } from 'constructs';
+import { Certificate } from 'aws-cdk-lib/aws-certificatemanager';
 
 export class Hosting extends Construct {
   constructor(scope: Construct, id: string) {
@@ -25,6 +26,12 @@ export class Hosting extends Construct {
       principals: [ new CanonicalUserPrincipal(cloudfrontOAI.cloudFrontOriginAccessIdentityS3CanonicalUserId) ],
     }));
 
+    const certArn = 'arn:aws:acm:us-east-1:410489852199:certificate/a8e91eac-846d-4aa7-a1c0-b3680aab8766';
+    const certificate = Certificate.fromCertificateArn(this, 'certificate', certArn);
+    const viewerCertificate = ViewerCertificate.fromAcmCertificate(certificate, {
+      aliases: [ 'dailytracker.apphosting.link' ],
+    });
+
     const distribution = new CloudFrontWebDistribution(this, 'SiteDistribution', {
       originConfigs: [
         {
@@ -39,6 +46,7 @@ export class Hosting extends Construct {
           }],
         },
       ],
+      viewerCertificate,
     });
 
     new BucketDeployment(this, 'DeployWithInvalidation', {
