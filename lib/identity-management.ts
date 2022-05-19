@@ -43,7 +43,7 @@ export class IdentityManagement extends Construct {
 
     userPool.addDomain('CognitoDomain', {
       customDomain: {
-        domainName: 'https://auth.dailytracker.apphosting.link',
+        domainName: 'auth.dailytracker.apphosting.link',
         certificate,
       },
     });
