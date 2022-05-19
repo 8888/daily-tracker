@@ -1,5 +1,6 @@
 import { Construct } from 'constructs';
 import { OAuthScope, UserPool } from 'aws-cdk-lib/aws-cognito';
+import { Certificate } from 'aws-cdk-lib/aws-certificatemanager';
 
 export class IdentityManagement extends Construct {
   constructor(scope: Construct, id: string) {
@@ -37,8 +38,14 @@ export class IdentityManagement extends Construct {
       preventUserExistenceErrors: true,
     });
 
+    const certArn = 'arn:aws:acm:us-east-1:001812633811:certificate/6499df28-33f7-428a-8889-5005991a49aa';
+    const certificate = Certificate.fromCertificateArn(this, 'certificate', certArn);
+
     userPool.addDomain('CognitoDomain', {
-      cognitoDomain: { domainPrefix: 'daily-tracker' },
+      customDomain: {
+        domainName: 'https://auth.dailytracker.apphosting.link',
+        certificate,
+      },
     });
   }
 }
