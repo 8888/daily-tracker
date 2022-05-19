@@ -38,7 +38,7 @@ export class IdentityManagement extends Construct {
       preventUserExistenceErrors: true,
     });
 
-    const certArn = 'arn:aws:acm:us-east-1:001812633811:certificate/6499df28-33f7-428a-8889-5005991a49aa';
+    const certArn = 'arn:aws:acm:us-east-1:001812633811:certificate/9db653a2-71f6-4ec9-b6ea-da5ee1cbb99b';
     const certificate = Certificate.fromCertificateArn(this, 'certificate', certArn);
 
     userPool.addDomain('CognitoDomain', {
