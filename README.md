@@ -17,13 +17,13 @@ https://auth.dailytracker.apphosting.link/login?client_id=5o7drsppg73j3vu377vqnb
 
 ## Local dev
 * `docker-compose up -d`
-* `npm --prefix ./lib/client/app run start`
 
 ### Angular App
-The angular app is built in a container and served through nginx.
-`docker build -t daily-tracker-client-image ./lib/client/app/`
-It can be ran on its own using
-`docker run --name daily-tracker-client-image -d -p 8888:80 daily-tracker-client-image`
+The angular app is built in a container and served through nginx.  
+`docker build -t daily-tracker-client-image ./lib/client/app/`  
+
+It can be ran on its own using  
+`docker run --name daily-tracker-client-image -d -p 8888:80 daily-tracker-client-image`  
 
 ### Cognito
 This is using `cognito-local` in a docker container for local emulation of Cognito  

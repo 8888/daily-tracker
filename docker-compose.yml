@@ -1,4 +1,8 @@
 services:
+  web-client:
+    image: daily-tracker-client-image
+    ports:
+      - 8888:80
   cognito:
     image: jagregory/cognito-local
     ports:
