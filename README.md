@@ -1,10 +1,12 @@
-# Welcome to your CDK TypeScript project
+# Daily Tracker
 
-This is a blank project for CDK development with TypeScript.
+## App URL:
+https://dailytracker.apphosting.link/
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+## Sign in URL:
+https://auth.dailytracker.apphosting.link/login?client_id=5o7drsppg73j3vu377vqnb6mat&response_type=code&scope=openid&redirect_uri=https%3A%2F%2Fdailytracker.apphosting.link
 
-## Useful commands
+## Useful CDK commands
 
 * `npm run build`   compile typescript to js
 * `npm run watch`   watch for changes and compile
@@ -13,8 +15,11 @@ The `cdk.json` file tells the CDK Toolkit how to execute your app.
 * `cdk diff`        compare deployed stack with current state
 * `cdk synth`       emits the synthesized CloudFormation template
 
-## App URL:
-https://dailytracker.apphosting.link/
+## Local dev
+* $ docker-compose up -d
+* $ npm --prefix ./lib/client/app run start
 
-## Sign in URL:
-https://auth.dailytracker.apphosting.link/login?client_id=5o7drsppg73j3vu377vqnb6mat&response_type=code&scope=openid&redirect_uri=https%3A%2F%2Fdailytracker.apphosting.link
+### Cognito
+This is using `cognito-local` in a docker container for local emulation of Cognito  
+https://github.com/jagregory/cognito-local  
+https://hub.docker.com/r/jagregory/cognito-local  

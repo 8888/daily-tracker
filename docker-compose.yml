@@ -1,0 +1,5 @@
+services:
+  cognito:
+    image: jagregory/cognito-local
+    ports:
+      - 9229:9229
