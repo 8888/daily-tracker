@@ -3,3 +3,5 @@ services:
     image: jagregory/cognito-local
     ports:
       - 9229:9229
+    volumes:
+      - .cognito:/app/.cognito

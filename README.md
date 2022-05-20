@@ -23,3 +23,7 @@ https://auth.dailytracker.apphosting.link/login?client_id=5o7drsppg73j3vu377vqnb
 This is using `cognito-local` in a docker container for local emulation of Cognito  
 https://github.com/jagregory/cognito-local  
 https://hub.docker.com/r/jagregory/cognito-local  
+Command used to create local user pool:
+```
+aws --endpoint http://localhost:9229 cognito-idp create-user-pool --pool-name "DailyTracker-UserPool" --username-attributes email
+```
