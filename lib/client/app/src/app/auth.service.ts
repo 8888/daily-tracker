@@ -14,6 +14,24 @@ export class AuthService {
     private http: HttpClient,
   ) {}
 
+  public validateAccess(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.fetchTokensFromLocal();
+      if (this.idToken && this.accessToken) {
+        resolve();
+        return;
+      }
+
+      const code = this.extractCode();
+      if (code) {
+        this.exchangeCodeForTokens(code, resolve, reject);
+      } else {
+        this.logout();
+        reject();
+      }
+    });
+  }
+
   public logout(): void {
     localStorage.clear();
     this.document.location.href = environment.loginUrl;
