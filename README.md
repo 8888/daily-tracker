@@ -17,6 +17,7 @@ https://auth.dailytracker.apphosting.link/login?client_id=5o7drsppg73j3vu377vqnb
 
 ## Local dev
 * `docker-compose up -d`
+* Client: [localhost:8888](localhost:8888)
 
 ### Angular App
 The angular app is built in a container and served through nginx.  

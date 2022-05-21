@@ -1,8 +1,12 @@
 services:
-  web-client:
-    image: daily-tracker-client-image
+  client:
+    image: node:16.15
+    working_dir: /app
+    volumes:
+      - ./lib/client/app:/app
     ports:
-      - 8888:80
+      - 8888:4200
+    command: npm start
   cognito:
     image: jagregory/cognito-local
     ports:
