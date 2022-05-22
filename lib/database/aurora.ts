@@ -15,7 +15,7 @@ export class AuroraDatabase extends Construct {
       ],
     });
 
-    const dbName = 'DailyTrackerDatabase';
+    const dbName = 'dailytracker';
     const cluster = new ServerlessCluster(this, 'ServerlessAuroraCluster', {
       defaultDatabaseName: dbName,
       engine: DatabaseClusterEngine.AURORA_POSTGRESQL,
