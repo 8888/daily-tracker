@@ -1,3 +1,18 @@
 <mat-toolbar color="primary">
-  <span>Daily Tracker!</span>
+  <button mat-icon-button aria-label="Menu button">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>Daily Tracker</span>
+
+  <span class="spacer"></span>
+
+  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="User menu button">
+    <mat-icon>account_circle</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item>
+      <mat-icon>logout</mat-icon>
+      <span>Logout</span>
+    </button>
+  </mat-menu>
 </mat-toolbar>
