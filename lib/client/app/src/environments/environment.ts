@@ -1,9 +1,9 @@
-const angularAppUrl = 'http://0.0.0.0:8888/';
-const cognitoUrl = 'http://0.0.0.0:9229/';
+const angularAppUrl = 'http://localhost:4200/';
+const cognitoUrl = 'https://auth.dailytracker.apphosting.link/';
 
 const cognitoAuthUrl = `${cognitoUrl}oauth2/token`;
 
-const userPoolClientId = 'local_4Js6VY0h';
+const userPoolClientId = '5o7drsppg73j3vu377vqnb6mat';
 const userPoolClientRedirectUri = angularAppUrl;
 const loginUrl = `${cognitoUrl}login?client_id=${userPoolClientId}&response_type=code&scope=openid&redirect_uri=${encodeURIComponent(userPoolClientRedirectUri)}`;
 

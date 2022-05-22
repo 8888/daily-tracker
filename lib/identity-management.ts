@@ -33,7 +33,7 @@ export class IdentityManagement extends Construct {
       oAuth: {
         flows: { authorizationCodeGrant: true },
         scopes: [ OAuthScope.OPENID ],
-        callbackUrls: [ 'https://dailytracker.apphosting.link' ],
+        callbackUrls: [ 'https://dailytracker.apphosting.link', 'http://localhost:4200' ],
       },
       preventUserExistenceErrors: true,
     });
