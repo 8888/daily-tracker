@@ -7,10 +7,13 @@ import { AuthService } from './auth.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'daily-tracker';
+  public title = 'daily-tracker';
+  public isAuthenticated = false;
 
   constructor(private authService: AuthService) {
-    this.authService.validateAccess();
+    this.authService.validateAccess().then(
+      () => this.isAuthenticated = true,
+    );
   }
 
   public logout(): void {

@@ -1,4 +1,4 @@
-<mat-toolbar color="primary">
+<mat-toolbar *ngIf="isAuthenticated; else loading" color="primary">
   <button mat-icon-button aria-label="Menu button">
     <mat-icon>menu</mat-icon>
   </button>
@@ -16,3 +16,7 @@
     </button>
   </mat-menu>
 </mat-toolbar>
+
+<ng-template #loading>
+  <mat-progress-bar class="loading-bar" color="accent" mode="indeterminate"></mat-progress-bar>
+</ng-template>
