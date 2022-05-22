@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ErrorInterceptor } from './error-interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from './material.module';
 
 const httpInterceptorProviders = [
   { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
@@ -20,6 +21,7 @@ const httpInterceptorProviders = [
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    MaterialModule,
   ],
   providers: [
     httpInterceptorProviders,
