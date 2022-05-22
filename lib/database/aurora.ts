@@ -24,7 +24,7 @@ export class AuroraDatabase extends Construct {
       vpcSubnets: {
         subnetType: SubnetType.PRIVATE_ISOLATED,
       },
-      parameterGroup: ParameterGroup.fromParameterGroupName(this, 'ParameterGroup', 'default.aurora-postgresql13')
+      parameterGroup: ParameterGroup.fromParameterGroupName(this, 'ParameterGroup', 'default.aurora-postgresql10')
     });
   }
 }
