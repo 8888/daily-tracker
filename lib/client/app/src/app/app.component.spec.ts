@@ -1,6 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { AuthService } from './auth.service';
+
+class MockAuthService {
+  public validateAccess(): Promise<void> {
+    return new Promise((resolve, reject) => {});
+  }
+}
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -10,6 +17,9 @@ describe('AppComponent', () => {
       ],
       declarations: [
         AppComponent
+      ],
+      providers: [
+        { provide: AuthService, useClass: MockAuthService },
       ],
     }).compileComponents();
   });
