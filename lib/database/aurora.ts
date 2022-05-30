@@ -1,4 +1,6 @@
 import { SubnetType, Vpc } from 'aws-cdk-lib/aws-ec2';
+import { PolicyStatement } from 'aws-cdk-lib/aws-iam';
+import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
 import { DatabaseClusterEngine, ParameterGroup, ServerlessCluster } from 'aws-cdk-lib/aws-rds';
 import { Construct } from 'constructs';
 
@@ -26,5 +28,24 @@ export class AuroraDatabase extends Construct {
       },
       parameterGroup: ParameterGroup.fromParameterGroupName(this, 'ParameterGroup', 'default.aurora-postgresql10')
     });
+
+    // By default, the construct will use the name of the defining file and the construct's id to look up the entry file.
+    // this will find aurora.migration.ts
+    // hanlder method will default to 'handler'
+    // https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_lambda_nodejs-readme.html
+    const migrationHandler = new NodejsFunction(this, 'migration');
+
+    migrationHandler.addToRolePolicy(PolicyStatement.fromJson({
+      "Effect": "Allow",
+      "Action": [
+        "secretsmanager:GetSecretValue",
+        "rds-data:BatchExecuteStatement",
+        "rds-data:BeginTransaction",
+        "rds-data:CommitTransaction",
+        "rds-data:ExecuteStatement",
+        "rds-data:RollbackTransaction"
+      ],
+      "Resource": "*",
+    }));
   }
 }

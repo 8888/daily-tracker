@@ -1,0 +1,5 @@
+CREATE TABLE note (
+  id SERIAL PRIMARY KEY,
+  body TEXT NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL,
+);
