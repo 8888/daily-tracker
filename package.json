@@ -11,6 +11,8 @@
     "cdk": "cdk"
   },
   "devDependencies": {
+    "@types/aws-lambda": "^8.10.97",
+    "@types/data-api-client": "^1.2.4",
     "@types/jest": "^27.5.0",
     "@types/node": "^10.17.27",
     "@types/prettier": "2.6.0",
