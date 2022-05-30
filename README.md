@@ -38,6 +38,13 @@ PSQL is in a docker container, start this by running `docker-compose up -d --rem
 - Restore the database from the schema file  
 `cat ./lib/database/schema.sql | docker exec -i daily-tracker-database-1 psql -U postgres -d dailytracker`  
 
+## Aurora Serverless Data API
+Start an SQL transaction by requesting a transaction identifier. Without this, all changes are executed immedieatly. With this, you must end the transaction session to commit changes.  
+`aws rds-data begin-transaction --resource-arn "arn:aws:rds:us-east-1:001812633811:cluster:dailytrackerappstage-dai-dailytrackerdbserverless-1ggazp1xm8n8d" --database "dailytracker" --secret-arn "arn:aws:secretsmanager:us-east-1:001812633811:secret:DailyTrackerDBServerlessAur-mdL2kArspLes-BnC2QY" --profile 001812633811_AWSAdministratorAccess`
+
+Run a SQL statement  
+`aws rds-data execute-statement --resource-arn "arn:aws:rds:us-east-1:001812633811:cluster:dailytrackerappstage-dai-dailytrackerdbserverless-1ggazp1xm8n8d" --database "dailytracker" --secret-arn "arn:aws:secretsmanager:us-east-1:001812633811:secret:DailyTrackerDBServerlessAur-mdL2kArspLes-BnC2QY" --sql "select column_name from information_schema.columns" --profile 001812633811_AWSAdministratorAccess`
+
 # Deprecated
 Below is no longer used, but useful for learnings  
 
