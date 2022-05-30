@@ -47,6 +47,7 @@ export class Pipeline extends Construct {
       crossAccountKeys: true,
       dockerEnabledForSelfMutation: true,
       synth: synthAction,
+      dockerEnabledForSynth: true,
     });
 
     pipeline.addStage(new AppStage(this, 'DailyTrackerAppStage', {
