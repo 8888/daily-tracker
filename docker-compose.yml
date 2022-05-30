@@ -1,15 +1,22 @@
 services:
-  client:
-    image: node:16.15
-    working_dir: /app
-    volumes:
-      - ./lib/client/app:/app
+  # client:
+  #   image: node:16.15
+  #   working_dir: /app
+  #   volumes:
+  #     - ./lib/client/app:/app
+  #   ports:
+  #     - 8888:4200
+  #   command: npm start
+  # cognito:
+  #   image: jagregory/cognito-local
+  #   ports:
+  #     - 9229:9229
+  #   volumes:
+  #     - .cognito:/app/.cognito
+  database:
+    image: postgres:13
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
     ports:
-      - 8888:4200
-    command: npm start
-  cognito:
-    image: jagregory/cognito-local
-    ports:
-      - 9229:9229
-    volumes:
-      - .cognito:/app/.cognito
+      - 5432:5432
