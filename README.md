@@ -18,10 +18,6 @@ https://auth.dailytracker.apphosting.link/login?client_id=5o7drsppg73j3vu377vqnb
 ## Docker
 PSQL is in a docker container, start this by running `docker-compose up -d --remove-orphans`  
 
-There are a few other containers that are no longer used. Cognito local doesn't support mocking hosted app sign in so we still need to use a real cognito instance making this unnecessary
-* a Dockerfile to build and serve the angular app 
-* a docker-compose to standup a dev environment for the angular app and a local cognito instance
-
 ### Some useful commands
 - Start all containers  
 `docker-compose up -d --remove-orphans`
@@ -41,6 +37,14 @@ There are a few other containers that are no longer used. Cognito local doesn't 
 `docker exec daily-tracker-database-1 psql -U postgres -c 'create database dailytracker'`   
 - Restore the database from the schema file  
 `cat ./lib/database/schema.sql | docker exec -i daily-tracker-database-1 psql -U postgres -d dailytracker`  
+
+# Deprecated
+Below is no longer used, but useful for learnings  
+
+## Docker
+There are a few other containers that are no longer used. Cognito local doesn't support mocking hosted app sign in so we still need to use a real cognito instance making this unnecessary
+* a Dockerfile to build and serve the angular app 
+* a docker-compose to standup a dev environment for the angular app and a local cognito instance
 
 ### Local Cognito
 This is using `cognito-local` in a docker container for local emulation of Cognito  
