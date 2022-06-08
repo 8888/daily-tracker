@@ -1,3 +1,4 @@
+import { Duration } from 'aws-cdk-lib';
 import { SubnetType, Vpc } from 'aws-cdk-lib/aws-ec2';
 import { PolicyStatement } from 'aws-cdk-lib/aws-iam';
 import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
@@ -33,7 +34,9 @@ export class AuroraDatabase extends Construct {
     // this will find aurora.migration.ts
     // hanlder method will default to 'handler'
     // https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_lambda_nodejs-readme.html
-    const migrationHandler = new NodejsFunction(this, 'migration');
+    const migrationHandler = new NodejsFunction(this, 'migration', {
+      timeout: Duration.seconds(6),
+    });
 
     migrationHandler.addToRolePolicy(PolicyStatement.fromJson({
       "Effect": "Allow",
