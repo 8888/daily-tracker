@@ -6,6 +6,8 @@ const database = 'dailytracker';
 const resourceArn = 'arn:aws:rds:us-east-1:001812633811:cluster:dailytrackerappstage-dai-dailytrackerdbserverless-1ggazp1xm8n8d';
 const secretArn = 'arn:aws:secretsmanager:us-east-1:001812633811:secret:DailyTrackerDBServerlessAur-mdL2kArspLes-BnC2QY';
 
+const bucketName = process.env.BUCKET;
+
 exports.handler = async function(event: any, context: Context) {
   const db = client({ database, resourceArn, secretArn });
 

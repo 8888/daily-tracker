@@ -47,6 +47,9 @@ export class AuroraDatabase extends Construct {
     // https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_lambda_nodejs-readme.html
     const migrationHandler = new NodejsFunction(this, 'migration', {
       timeout: Duration.seconds(6),
+      environment: {
+        BUCKET: migrationsBucket.bucketName,
+      },
     });
 
     migrationHandler.addToRolePolicy(PolicyStatement.fromJson({
