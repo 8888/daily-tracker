@@ -3,6 +3,8 @@ import { SubnetType, Vpc } from 'aws-cdk-lib/aws-ec2';
 import { PolicyStatement } from 'aws-cdk-lib/aws-iam';
 import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
 import { DatabaseClusterEngine, ParameterGroup, ServerlessCluster } from 'aws-cdk-lib/aws-rds';
+import { BlockPublicAccess, Bucket } from 'aws-cdk-lib/aws-s3';
+import { BucketDeployment, Source } from 'aws-cdk-lib/aws-s3-deployment';
 import { Construct } from 'constructs';
 
 export class AuroraDatabase extends Construct {
@@ -30,6 +32,15 @@ export class AuroraDatabase extends Construct {
       parameterGroup: ParameterGroup.fromParameterGroupName(this, 'ParameterGroup', 'default.aurora-postgresql10')
     });
 
+    const migrationsBucket = new Bucket(this, 'DailyTrackerMigrationBucket', {
+      blockPublicAccess: BlockPublicAccess.BLOCK_ALL,
+    });
+
+    new BucketDeployment(this, 'MigrationsDeploy', {
+      sources: [ Source.asset('./lib/database/migrations') ],
+      destinationBucket: migrationsBucket,
+    });
+
     // By default, the construct will use the name of the defining file and the construct's id to look up the entry file.
     // this will find aurora.migration.ts
     // hanlder method will default to 'handler'
@@ -50,5 +61,7 @@ export class AuroraDatabase extends Construct {
       ],
       "Resource": "*",
     }));
+
+    migrationsBucket.grantRead(migrationHandler);
   }
 }
