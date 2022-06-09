@@ -17,6 +17,7 @@ exports.handler = async function(event: any, context: Context) {
   const db = client({ database, resourceArn, secretArn });
 
   const schemaVersion = 0; // fetch from DB
+  console.log(`schemaVersion ${schemaVersion}`);
 
   if (bucketName) {
     const migrationFiles = await s3.listObjectsV2({ Bucket: bucketName }).promise();
@@ -25,14 +26,20 @@ exports.handler = async function(event: any, context: Context) {
     if (fileKeys && fileKeys.length > schemaVersion) {
       // run schema migrations
       const keys = fileKeys.slice(schemaVersion);
+      console.log('s3 bucket keys:');
+      console.log(keys);
       const results: {key:string, records: string}[] = [];
 
       keys.forEach(async key => {
         const file = await s3.getObject({ Bucket: bucketName, Key: key! }).promise();
         const contents = file.Body?.toString();
 
+        console.log(`running migration ${key}`);
+        console.log(contents);
+
         // don't anyone do this anywhere real please =)
         const { records } = await db.query(contents);
+        console.log(records);
         results.push({ key, records });
       });
 
