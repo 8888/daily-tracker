@@ -46,7 +46,7 @@ export class AuroraDatabase extends Construct {
     // hanlder method will default to 'handler'
     // https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_lambda_nodejs-readme.html
     const migrationHandler = new NodejsFunction(this, 'migration', {
-      timeout: Duration.seconds(10),
+      timeout: Duration.seconds(30),
       environment: {
         BUCKET: migrationsBucket.bucketName,
       },
