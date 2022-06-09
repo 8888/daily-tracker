@@ -14,10 +14,19 @@ const bucketName = process.env.BUCKET;
 exports.handler = async function(event: any, context: Context) {
   if (bucketName) {
     const migrationFiles = await s3.listObjectsV2({ Bucket: bucketName }).promise();
+    const fileKeys = migrationFiles.Contents?.map(f => f.Key);
+
+    if (fileKeys) {
+      const file = await s3.getObject({
+        Bucket: bucketName,
+        Key: fileKeys[0]!,
+      });
+      console.log(file);
+    }
 
     const db = client({ database, resourceArn, secretArn });
     const { records } = await db.query('select schema_name from information_schema.schemata;');
-    const body = { records, migrationFiles };
+    const body = { records, fileKeys };
 
     return {
       statusCode: 200,
