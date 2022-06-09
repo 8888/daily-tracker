@@ -14,27 +14,29 @@ const bucketName = process.env.BUCKET;
 const headers = { 'Access-Control-Allow-Origin': '*' };
 
 exports.handler = async function(event: any, context: Context) {
+  const db = client({ database, resourceArn, secretArn });
+
   const schemaVersion = 0; // fetch from DB
 
   if (bucketName) {
     const migrationFiles = await s3.listObjectsV2({ Bucket: bucketName }).promise();
-    const fileKeys = migrationFiles.Contents?.map(f => f.Key);
+    const fileKeys = migrationFiles.Contents?.map(f => f.Key!);
 
     if (fileKeys && fileKeys.length > schemaVersion) {
       // run schema migrations
       const keys = fileKeys.slice(schemaVersion);
-      const files = [];
+      const results: {key:string, records: string}[] = [];
 
       keys.forEach(async key => {
         const file = await s3.getObject({ Bucket: bucketName, Key: key! }).promise();
-        console.log('*** file contents ***')
-        console.log(file.Body?.toString());
-        files.push(file.Body?.toString());
+        const contents = file.Body?.toString();
+
+        // don't anyone do this anywhere real please =)
+        const { records } = await db.query(contents);
+        results.push({ key, records });
       });
 
-      const db = client({ database, resourceArn, secretArn });
-      const { records } = await db.query('select schema_name from information_schema.schemata;');
-      const body = { records, fileKeys };
+      const body = { results };
 
       return {
         statusCode: 200,
