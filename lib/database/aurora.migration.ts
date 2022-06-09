@@ -30,7 +30,7 @@ exports.handler = async function(event: any, context: Context) {
       console.log(keys);
       const results: {key:string, records: string}[] = [];
 
-      keys.forEach(async key => {
+      for (const key of keys) {
         const file = await s3.getObject({ Bucket: bucketName, Key: key! }).promise();
         const contents = file.Body?.toString();
 
@@ -41,7 +41,7 @@ exports.handler = async function(event: any, context: Context) {
         const { records } = await db.query(contents);
         console.log(records);
         results.push({ key, records });
-      });
+      }
 
       const body = { results };
 
