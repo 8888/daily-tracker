@@ -16,7 +16,8 @@ const headers = { 'Access-Control-Allow-Origin': '*' };
 exports.handler = async function(event: any, context: Context) {
   const db = client({ database, resourceArn, secretArn });
 
-  const schemaVersion = 0; // fetch from DB
+  const lastVersion = await db.query('select version from db_version order by id desc limit 1;');
+  const schemaVersion = parseInt(lastVersion[0].version);
   console.log(`schemaVersion ${schemaVersion}`);
 
   if (bucketName) {
