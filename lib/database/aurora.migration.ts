@@ -25,7 +25,7 @@ exports.handler = async function(event: any, context: Context) {
 
     if (fileKeys && fileKeys.length > schemaVersion) {
       // run schema migrations
-      const keys = fileKeys.slice(schemaVersion);
+      const keys = fileKeys.slice(schemaVersion + 1);
       console.log('s3 bucket keys:');
       console.log(keys);
       const results: {key:string, records: string}[] = [];
