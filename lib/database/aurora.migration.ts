@@ -41,6 +41,12 @@ exports.handler = async function(event: any, context: Context) {
         const { records } = await db.query(contents);
         console.log(records);
         results.push({ key, records });
+
+        const version = key.split('_')[0];
+        await db.query(
+          `insert into db_version (version, updated_at) values (:version, current_timestamp)`,
+          { version },
+        );
       }
 
       const body = { results };
