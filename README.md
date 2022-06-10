@@ -45,6 +45,27 @@ Start an SQL transaction by requesting a transaction identifier. Without this, a
 Run a SQL statement  
 `aws rds-data execute-statement --resource-arn "arn:aws:rds:us-east-1:001812633811:cluster:dailytrackerappstage-dai-dailytrackerdbserverless-1ggazp1xm8n8d" --database "dailytracker" --secret-arn "arn:aws:secretsmanager:us-east-1:001812633811:secret:DailyTrackerDBServerlessAur-mdL2kArspLes-BnC2QY" --sql "select column_name from information_schema.columns" --profile 001812633811_AWSAdministratorAccess`
 
+### Migrations
+There is a lambda to handle any schema migrations. This is currently kicked off manually. All migration files should be in /lib/database/migrations and follow the format of `{version}_description_of_changes.sql`. Versions are simply incrementing integers.  
+
+### Local DB
+See above in Docker for how to get the local db running.  
+
+Connect psql to the container (password is in docker-compose.yml)  
+`psql -h localhost -p 5432 -U postgres -d dailytracker`
+
+Create the database  
+`psql -h localhost -p 5432 -U postgres -c 'create database dailytracker;'`
+
+Run a specific migration file  
+`psql -h localhost -p 5432 -U postgres -d dailytracker -f ./lib/database/migrations/0_create_db_version_table.sql`
+
+Dump the schema file  
+`pg_dump -h localhost -p 5432 -U postgres -d dailytracker -s > lib/database/schema.sql`
+
+Restore from the dump  
+`psql -h localhost -p 5432 -U postgres -d dailytracker -f ./lib/database/schema.sql`
+
 # Deprecated
 Below is no longer used, but useful for learnings  
 
