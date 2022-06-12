@@ -7,6 +7,12 @@ export type Note = {
   updated_at: string,
 };
 
-export function createNote(body: string, db: DBConnection): Note {
-  return {id: '', body: '', created_at: '', updated_at: ''}
+export async function createNote(body: string, db: DBConnection) {
+  const sql = `
+    insert into note (body, created_at, updated_at)
+    values (:body, current_timestamp, current_timestamp);
+  `;
+  const params = { body };
+
+  return db.query(sql, params);
 }

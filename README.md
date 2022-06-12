@@ -71,7 +71,18 @@ The services are defined in `lib/service` and are written in TypeScript. To run 
 - Run `npm run watch-service` to compile
 - Run a new node REPL `node`
 - Import the local wrapper `let main; import('./lib/service/dist/out-tsc/service/local.js').then(m => { main = m.main });`
-- Now interact with the services. For example, to create a new note: `main.note.createNote('some new note', main.db)`
+- Now interact with the services. Some examples:  
+```js
+await main.note.createNote('some new note', main.db);
+
+main.db.parse(`INSERT INTO myTable (name,age,has_curls) VALUES(:name,:age,:curls)`, { name: 'Greg',   age: 18,  curls: false })
+
+const { records } = await main.db.query('select * from note');
+
+const sql = 'insert into note (body, created_at, updated_at) values (:body, current_timestamp, current_timestamp)'
+const params = {body: 'some new note'}
+await main.db.query(sql, params)
+```
 
 # Deprecated
 Below is no longer used, but useful for learnings  
