@@ -66,6 +66,13 @@ Dump the schema file
 Restore from the dump  
 `psql -h localhost -p 5432 -U postgres -d dailytracker -f ./lib/database/schema.sql`
 
+## Local dev for API services
+The services are defined in `lib/service` and are written in TypeScript. To run this locally, we need to compile the TS to JS, and then ensure we have a connection to the local PSQL database instead of serverless Aurora.  
+- Run `npm run watch-service` to compile
+- Run a new node REPL `node`
+- Import the local wrapper `let main; import('./lib/service/dist/out-tsc/service/local.js').then(m => { main = m.main });`
+- Now interact with the services. For example, to create a new note: `main.note.createNote('some new note', main.db)`
+
 # Deprecated
 Below is no longer used, but useful for learnings  
 
