@@ -9,3 +9,6 @@ node_modules
 # CDK asset staging directory
 .cdk.staging
 cdk.out
+
+# output of TS compiler for services for local dev
+lib/service/dist

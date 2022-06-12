@@ -7,6 +7,7 @@
   "scripts": {
     "build": "tsc",
     "watch": "tsc -w",
+    "watch-service": "tsc -w -p ./lib/service",
     "test": "jest",
     "cdk": "cdk"
   },
