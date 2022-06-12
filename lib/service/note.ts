@@ -7,6 +7,11 @@ export type Note = {
   updated_at: string,
 };
 
+export async function indexNotes(db: DBConnection) {
+  const sql = `select * from note;`;
+  return db.query(sql);
+}
+
 export async function createNote(body: string, db: DBConnection) {
   const sql = `
     insert into note (body, created_at, updated_at)

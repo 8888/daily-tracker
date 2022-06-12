@@ -74,6 +74,7 @@ The services are defined in `lib/service` and are written in TypeScript. To run 
 - Now interact with the services. Some examples:  
 ```js
 await main.note.createNote('some new note', main.db);
+await main.note.indexNotes(main.db)
 
 main.db.parse(`INSERT INTO myTable (name,age,has_curls) VALUES(:name,:age,:curls)`, { name: 'Greg',   age: 18,  curls: false })
 
