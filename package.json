@@ -17,6 +17,7 @@
     "@types/data-api-client": "^1.2.4",
     "@types/jest": "^27.5.0",
     "@types/node": "^10.17.27",
+    "@types/pg": "^8.6.5",
     "@types/prettier": "2.6.0",
     "aws-cdk": "2.24.1",
     "aws-sdk": "^2.1145.0",
